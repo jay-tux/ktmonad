@@ -1,9 +1,9 @@
 package com.jay.monads
 
-class Maybe<T>(data: T?) {
-    private val data: T? = data
+class Maybe<T> private constructor(private val data: T?, discr: Boolean) {
 
-    constructor() : this(null) {}
+    constructor() : this(null, false) { }
+    constructor(data: T) : this(data, false) { }
 
     fun <T2> fmap(f: (T) -> T2): Maybe<T2> {
         return if(data == null) Maybe() else Maybe(f(data))
