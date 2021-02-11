@@ -1,3 +1,5 @@
+package com.jay.monads
+
 class Either<E, A> private constructor(data: A?, err: E?) {
     val data: A? = data
     val error: E? = err

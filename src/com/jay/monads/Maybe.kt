@@ -1,3 +1,5 @@
+package com.jay.monads
+
 class Maybe<T>(data: T?) {
     private val data: T? = data
 
