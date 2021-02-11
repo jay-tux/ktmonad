@@ -9,29 +9,21 @@ class Maybe<T> private constructor(private val data: T?, discr: Boolean) {
         return if(data == null) Maybe() else Maybe(f(data))
     }
 
-    infix fun <T2> `*?*`(f: (T) -> T2): Maybe<T2> {
-        return fmap(f)
-    }
+    infix fun <T2> `*?*`(f: (T) -> T2): Maybe<T2>  = fmap(f)
 
     fun <T2> ap(f: Maybe<(T) -> T2>): Maybe<T2> {
         return if(data == null || f.data == null) Maybe() else Maybe((f.data)(data))
     }
 
-    infix fun <T2> `***`(f: Maybe<(T) -> T2>): Maybe<T2> {
-        return ap(f)
-    }
+    infix fun <T2> `***`(f: Maybe<(T) -> T2>): Maybe<T2> = ap(f)
 
     fun <T2> bind(f: (T) -> Maybe<T2>): Maybe<T2> {
         return if(data == null) Maybe() else f(data)
     }
 
-    infix fun <T2> `**=`(f: (T) -> Maybe<T2>): Maybe<T2> {
-        return bind(f)
-    }
+    infix fun <T2> `**=`(f: (T) -> Maybe<T2>): Maybe<T2> = bind(f)
 
     companion object {
-        fun <T> pure(data:T):Maybe<T> {
-            return Maybe(data)
-        }
+        fun <T> pure(data:T):Maybe<T> = Maybe(data)
     }
 }
