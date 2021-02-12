@@ -1,6 +1,6 @@
 package com.jay.monads
 
-class MList<T> private constructor(private val data: T?, private val next: MList<T>?, discriminator: Boolean) {
+class MList<T> private constructor(private val data: T?, private val next: MList<T>?, discriminator: Boolean) : Monoid<T, MList<T>> {
 
     constructor(): this(null, null, false) { }
     constructor(data: T): this(data, MList()) { }
@@ -31,4 +31,7 @@ class MList<T> private constructor(private val data: T?, private val next: MList
     companion object {
         fun <T> pure(data:T):MList<T> = MList(data)
     }
+
+    override fun mempty(): MList<T>  = MList()
+    override fun mappend(other: MList<T>): MList<T> = this `+++` other
 }
